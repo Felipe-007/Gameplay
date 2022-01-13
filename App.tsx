@@ -1,8 +1,35 @@
+//Ponto de partida do APP
+
 import React from "react";
+import { StatusBar } from "react-native";
+import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
+import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhani';
+import AppLoading from "expo-app-loading";
+import { useFonts } from 'expo-font';
+
 import { SignIn } from './src/screens/SignIn';
+import { Background } from './src/components/Background';
 
 export default function App() {
-  return (
-    <SignIn />
+  const [fontsLoaded] = useFonts({  //cria a const fontsLoaded
+    Inter_400Regular,
+    Inter_500Medium,
+    Rajdhani_500Medium,
+    Rajdhani_700Bold,
+  });
+
+  if (!fontsLoaded) {  // enquando ocorrer a splash screen (tela de carregamento) o app não abre
+    return <AppLoading />
+  }
+
+  return (  // cria um fragment, onde será replicado em todas as telas
+    <Background>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      <SignIn />
+    </Background>
   );
 }
