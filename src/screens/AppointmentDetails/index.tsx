@@ -10,8 +10,10 @@ import { styles } from "./styles";
 import BannerImg from '../../assets/banner.png'
 import { Background } from "../../components/Background";
 import { ListHeader } from "../../components/ListHeader";
+import { ButtonIcon } from "../../components/ButtonIcon";
 import { Header } from "../../components/Header";
 import { Member } from "../../components/Member";
+import { ListDivider } from "../../components/ListDivider";
 
 export function AppointmentDetails() {
     const members = [
@@ -69,7 +71,13 @@ export function AppointmentDetails() {
                 renderItem={({ item }) => (
                     <Member data={item} />
                 )}
+                ItemSeparatorComponent={() => <ListDivider />}
+                style={styles.members}
             />
+
+            <View style={styles.footer}>
+                <ButtonIcon title="Entre na partida" />
+            </View>
         </Background>
     );
 }
