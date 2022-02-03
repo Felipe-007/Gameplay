@@ -16,12 +16,13 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 20
+        paddingVertical: 19
     },
     title: {
         fontFamily: theme.fonts.title700,
         color: theme.colors.heading,
-        fontSize: 15
+        fontSize: 15,
+        marginTop: 20
     },
     check: {
         position: 'absolute',

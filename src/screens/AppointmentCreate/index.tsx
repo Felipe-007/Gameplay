@@ -3,84 +3,119 @@
 import React, { useState } from "react";
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
-import { Text, View } from "react-native";
+
+import {
+    Text,
+    View,
+    ScrollView,
+    Platform,
+    KeyboardAvoidingView
+} from "react-native";
+
 import { theme } from "../../global/styles/theme";
 import { styles } from "./styles";
 import { CategorySelect } from "../../components/CategorySelect";
 import { Background } from "../../components/Background";
 import { Header } from "../../components/Header";
 import { SmallInput } from "../../components/SmallInput";
+import { TextArea } from "../../components/TextArea";
 import { GuildIcon } from "../../components/GuildIcon";
+import { Button } from "../../components/Button";
 
 export function AppointmentCreate() {
     const [category, setCategory] = useState('');
 
     return (
-        <Background>
-            <Header
-                title="Agendar partida"
-            />
+        <KeyboardAvoidingView  // ajusta o texto de digitação na tela
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}            
+        >
+            <ScrollView>
+                <Header
+                    title="Agendar partida"
+                />
 
-            <Text style={[styles.label,
-            { marginLeft: 24, marginTop: 36, marginBottom: 18 }]}>
-                Categoria
-            </Text>
+                <Text style={[styles.label,
+                { marginLeft: 24, marginTop: 36, marginBottom: 18 }]}>
+                    Categoria
+                </Text>
 
-            <CategorySelect
-                hasCheckBox
-                setCategory={setCategory}
-                categorySelected={category}
-            />
+                <CategorySelect
+                    hasCheckBox
+                    setCategory={setCategory}
+                    categorySelected={category}
+                />
 
-            <View style={styles.form}>
-                <RectButton>
-                    <View style={styles.select}>
-                        {
-                            //<View style={styles.image} />
-                            <GuildIcon />
-                        }
+                <View style={styles.form}>
+                    <RectButton>
+                        <View style={styles.select}>
+                            {
+                                //<View style={styles.image} />
+                                <GuildIcon />
+                            }
 
-                        <View style={styles.selectBody}>
+                            <View style={styles.selectBody}>
+                                <Text style={styles.label}>
+                                    Selecione um servidor
+                                </Text>
+                            </View>
+
+                            <Feather // icone de maior
+                                name="chevron-right"
+                                color={theme.colors.heading}
+                                size={18}
+                            />
+                        </View>
+                    </RectButton>
+                    <View style={styles.field}>
+                        <View>
                             <Text style={styles.label}>
-                                Selecione um servidor
+                                Dia e mês
                             </Text>
+                            <View style={styles.column}>
+                                <SmallInput maxLength={2} />
+                                <Text style={styles.divider}>
+                                    /
+                                </Text>
+                                <SmallInput maxLength={2} />
+                            </View>
                         </View>
 
-                        <Feather // icone de maior
-                            name="chevron-right"
-                            color={theme.colors.heading}
-                            size={18}
-                        />
-                    </View>
-                </RectButton>
-                <View style={styles.field}>
-                    <View>
-                        <Text style={styles.label}>
-                            Dia e mês
-                        </Text>
-                        <View style={styles.column}>
-                            <SmallInput maxLength={2} />
-                            <Text style={styles.divider}>
-                                /
+                        <View>
+                            <Text style={styles.label}>
+                                Hora e minuto
                             </Text>
-                            <SmallInput maxLength={2} />
+                            <View style={styles.column}>
+                                <SmallInput maxLength={2} />
+                                <Text style={styles.divider}>
+                                    :
+                                </Text>
+                                <SmallInput maxLength={2} />
+                            </View>
                         </View>
+                    </View>
+                    <View style={[styles.field, { marginBottom: 12 }]}>
+                        <Text style={styles.label}>
+                            Descrição
+                        </Text>
+
+                        <Text style={styles.caracteresLimit}>
+                            Máximo de 100 caracteres
+                        </Text>
                     </View>
 
-                    <View>
-                        <Text style={styles.label}>
-                            Hora e minuto
-                        </Text>
-                        <View style={styles.column}>
-                            <SmallInput maxLength={2} />
-                            <Text style={styles.divider}>
-                                :
-                            </Text>
-                            <SmallInput maxLength={2} />
-                        </View>
+                    <TextArea
+                        multiline
+                        maxLength={100}
+                        numberOfLines={5}
+                        autoCorrect={false}
+                    />
+
+                    <View style={styles.footer}>
+                        <Button title="Agendar"/>
                     </View>
                 </View>
-            </View>
-        </Background>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
