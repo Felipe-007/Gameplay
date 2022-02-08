@@ -48,10 +48,10 @@ export function Home() {
         categoryId === category ? setCategory('') : setCategory(categoryId);
     }
 
-    function handleAppointmentDetails(){
+    function handleAppointmentDetails() {
         navigation.navigate('AppointmentDetails');
     }
-    function handleAppointmentCreate(){
+    function handleAppointmentCreate() {
         navigation.navigate('AppointmentCreate');  // ao clicar em +, será direcionado para Agendar partida 
     }
 
@@ -65,30 +65,29 @@ export function Home() {
 
             <CategorySelect  //Categorias
                 categorySelected={category}
-                setCategory={handleCategorySelect}                
+                setCategory={handleCategorySelect}
             />
 
-            <View style={styles.content}>
-                <ListHeader  // Conteudo ListHeader
-                    title="Partidas agendadas"
-                    subtitle="Total 6"
-                />
 
-                <FlatList // Conteudo FlatList
-                    data={appointments}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => (
-                        <Appointment 
-                        data={item} 
+            <ListHeader  // Conteudo ListHeader
+                title="Partidas agendadas"
+                subtitle="Total 6"
+            />
+
+            <FlatList // Conteudo FlatList
+                data={appointments}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                    <Appointment
+                        data={item}
                         onPress={handleAppointmentDetails}
-                        />
-                    )}
-                    ItemSeparatorComponent={() => <ListDivider />}  // linha que divide as partidas agendadas
-                    style={styles.matches}
-                    showsVerticalScrollIndicator={false}
-                />
-
-            </View>
+                    />
+                )}
+                ItemSeparatorComponent={() => <ListDivider />}  // linha que divide as partidas agendadas
+                contentContainerStyle={{ paddingBottom: 69 }}
+                style={styles.matches}
+                showsVerticalScrollIndicator={false}
+            />
 
         </Background>
     );
