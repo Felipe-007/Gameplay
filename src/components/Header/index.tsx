@@ -17,7 +17,7 @@ export function Header({ title, action }: Props) {
 
     const navigation = useNavigation();  // ação de voltar
 
-    function handleGoBack(){  // ação de voltar
+    function handleGoBack() {  // ação de voltar
         navigation.goBack();
     }
 
@@ -39,12 +39,14 @@ export function Header({ title, action }: Props) {
             </Text>
 
             {
-                action &&  //caso tenho o botão para compartilhamento, será mostrado
-                <View>
-                    { action }
-                </View>
+                action  //caso tenho o botão para compartilhamento, será mostrado
+                    ?
+                    <View>
+                        {action}
+                    </View>
+                    :
+                    <View style={{ width: 24 }} />
             }
-
         </LinearGradient>
     );
 }
