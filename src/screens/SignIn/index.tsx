@@ -5,8 +5,8 @@ import {
     View,
     Text,
     Image,
+    Alert
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from "../../hooks/auth";
 
@@ -16,14 +16,15 @@ import { styles } from './styles';
 import { ButtonIcon } from "../../components/ButtonIcon";
 import { Background } from "../../components/Background";
 
-export function SignIn() {
+export function SignIn() {    
+    const { user, signIn } = useAuth();  // irá consumir o contexto 'hooks'    
 
-    const navigation = useNavigation();
-    const { user } = useAuth();  // irá consumir o contexto 'hooks'
-    //console.log(user);  // apresenta o contexto'hooks'(dados de login)
-
-    function handleSignIn() {
-        navigation.navigate('Home');
+    async function handleSignIn() {
+        try {
+            await signIn();
+        }catch (error){
+            Alert.alert(error);
+        }
     }
 
     return (
