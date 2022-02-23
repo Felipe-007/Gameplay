@@ -1,34 +1,53 @@
-import React from "react";
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View, Text, Alert } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 
-import { useAuth } from "../../hooks/auth";
+import { useAuth } from '../../hooks/auth';
 
 import { Avatar } from '../Avatar';
-import { styles } from "./styles";
+import { styles } from './styles';
 
 export function Profile() {
-    const { user } = useAuth();    
+  const { user, signOut } = useAuth();
 
-    return (
-        <View style={styles.container}>
+  function handleSignOut() {
+    Alert.alert('Logout', 'Deseja sair do GamePlay?',
+      [
+        {
+          text: 'Não',
+          style: 'cancel'
+        },
+        {
+          text: 'Sim',
+          onPress: () => signOut()
+        }
+      ])
+  }
 
-            <Avatar urlImage={user.avatar} />
+  return (
+    <View style={styles.container}>
 
-            <View>
-                <View style={styles.user}>
-                    <Text style={styles.greeting}>
-                        Olá,
-                    </Text>
+      <RectButton onPress={handleSignOut}>
+        <Avatar urlImage={user.avatar} />
+      </RectButton>
 
-                    <Text style={styles.username}>
-                        { user.firstName }
-                    </Text>                    
-                </View>
+      <View>
+        <View style={styles.user}>
+          <Text style={styles.greeting}>
+            Olá,
+          </Text>
 
-                <Text style={styles.message}>
-                    Hoje é dia de vitória
-                </Text>
-            </View>
+          <Text style={styles.username}>
+            {user.firstName}
+          </Text>
         </View>
-    )
+
+        <Text style={styles.message}>
+          Hoje é dia de vitória
+        </Text>
+      </View>
+
+    </View>
+  )
+
 }
