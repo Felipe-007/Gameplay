@@ -14,8 +14,17 @@ import { ButtonIcon } from "../../components/ButtonIcon";
 import { Header } from "../../components/Header";
 import { Member } from "../../components/Member";
 import { ListDivider } from "../../components/ListDivider";
+import { useRoute } from "@react-navigation/native";
+import { AppointmentProps } from "../../components/Appointment";
+
+type Params = {
+    guildSelected: AppointmentProps
+}
 
 export function AppointmentDetails() {
+    const route = useRoute();
+    const { guildSelected } = route.params as Params;
+
     const members = [
         {
             id: '1',
@@ -51,11 +60,11 @@ export function AppointmentDetails() {
             >
                 <View style={styles.bannerContent}>
                     <Text style={styles.title}>
-                        Lendários
+                        { guildSelected.guild.name }
                     </Text>
 
                     <Text style={styles.subtitle}>
-                        É hoje que vamos chegar ao challenger sem perder uma partida da md10
+                        { guildSelected.description }
                     </Text>
                 </View>
             </ImageBackground>
